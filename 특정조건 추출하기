@@ -1,0 +1,7 @@
+SELECT * FROM shop_db.member; ----- SELECT 열_이름 FROM 테이블_이름 [WHERE 조건]이고 *는 모든열 의미
+OUTPUT패널에는 현재 결과의 건수와 조회하는 데 소요된 시간이 표시
+(SQL)은 대소문자 구분X
+
+
+SELECT * FROM member where member_name = '아이유';
+where 다음 특정조건 입력시 회원이름이 아이유인 회원만 출력되도록 한 것

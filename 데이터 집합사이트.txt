@@ -1,0 +1,5 @@
+https://kbig.kr/portal/kbig/datacube.page
+데이터셋 
+
+https://www.kaggle.com/
+케글사이트 sql위주

@@ -1,0 +1,77 @@
+CREATE SCHEMA 'mydatabase' DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+utf8mb4 한글을 포함한 전세계 문자 + 이모티콘 사용 가능
+utf8mb4 _general _ci 가장 정확하지는 않지만 정렬속도 빠름
+
+--테이블명 변경
+ALTER TABLE people RENAME TO friends,
+
+--컬럼 자료형 변경
+CHANGE COLUMN person_id person_id TINYINT,
+
+--컬럼명 변경
+CHANGE COLUMN person_name person_nickname VARCHAR(10),
+
+--컬럼 삭제
+DROP COLUMN birthday,
+
+--컬럼 추가
+ADD COLUMN is_married TINYINT AFTER age;
+
+테이블 삭제
+DROP TABLE friends;
+
+INSERT INTO-데이터 삽입
+INSERT INTO actor
+	(actor_id,first_name,last_name,last_update)
+VALUES(1200,'홍길동','ㄹㄹ','2006-02-03');
+
+여러행 한번에 입력
+INSERT INTO actor
+	(actor_id,first_name,last_name,last_update)
+    VALUES(1200,'홍길동','ㄹㄹ','2006-02-03'),(1070,'홍길동','ㄹㄹ','2006-02-03');
+
+테이블 생성시 제약넣기
+CREATE TABLE people(
+	person_id INT AUTO_INCREMENT PRIMARY KEY,
+    person_name VARCHAR(10) NOT NULL,
+    nickname VARCHAR(10) UNIQUE NOT NULL,
+    age TINYINT UNSIGNED,
+    is_married TINYINT DEFAULT 0
+    );
+
+AUTO_INCREMENT-----새 행 생성시마다 자동으로 1씩 증가
+PRIMARY KEY ----------중복 입력 불가,NULL 불가
+UNIQUE ----------------중복 입력 불가
+NOT NULL -------------null 입력 불가
+UNSIGNED -------------(숫자일시) 양수만 가능
+DEFAULT ---------------값 입력이 없을 시 기본값
+
+table안에 null값 넣기
+insert into people	
+	(person_name,nickname,age,is_married)
+	values('박쇳물','아이언수',NULL,1);
+
+데이터의 수정
+
+UPDATE 고객
+SET 고객아이디='딸기가 좋아'-----고객아이디를 바꾼다
+WHERE 고객이름='최유경';--------고객이름을 찾아서
+
+SELECT * FROM 고객;--------------SELECT창 띄우기
+
+수정2
+UPDATE 고객
+SET 적립금 = 적립금 *1.1;
+
+SELECT * FROM 고객;
+
+
+데이터의 삭제
+delete문은 where절에 제시한 조건을 만족하는 투플만 삭제
+delete
+from 고객
+where 적립금 = 110;
+
+
+
+

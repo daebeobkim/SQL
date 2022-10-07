@@ -1,0 +1,107 @@
+select문은 구축이 완료된 테이블에서 데이터를 추출하는 기능
+
+select의 가장 기본 형식은 select~from~where이다.
+select 바로 다음에는 열 이름이, from다음에는 테이블 이름이 나온다.
+where다음에는 조건식이 나오는데, 조건식을 다양하게 표현함으로써 데이터베이스에서 원하는 데이터를 뽑는다.
+
+인터넷에서 예제를 받은 후
+drop database는 mark_db를 삭제하는 문장
+책을 학습하다 보면 다시 이 sql을 실행할 일이 있기 때문에
+기존의 market_db를 삭제함
+
+DROP DATABASE IF EXISTS market_db; -- 만약 market_db가 존재하면 우선 삭제한다.
+CREATE DATABASE market_db;
+
+use문은 market_db 데이터베이스를 선택하는 문장
+mysql workbench의 [SCHEMAS]패널에서 shop_db 데이터베이스를 더블 클릭해서 선택했습니다.
+--시 주석처리
+USE market_db;
+CREATE TABLE member -- 회원 테이블
+( mem_id  		CHAR(8) NOT NULL PRIMARY KEY, -- 사용자 아이디(PK)
+  mem_name    	VARCHAR(10) NOT NULL, -- 이름
+  mem_number    INT NOT NULL,  -- 인원수
+  addr	  		CHAR(2) NOT NULL, -- 지역(경기,서울,경남 식으로 2글자만입력)
+  phone1		CHAR(3), -- 연락처의 국번(02, 031, 055 등)
+  phone2		CHAR(8), -- 연락처의 나머지 전화번호(하이픈제외)
+  height    	SMALLINT,  -- 평균 키
+  debut_date	DATE  -- 데뷔 일자
+);
+
+구매테이블 만들기
+AUTO_INCREMENT가 나왔고 이것은 자동으로 숫자를 입력해준다는 의미
+즉 순번은 직접 입력할 필요 없이 1,2,3, .... 과 같은 방식으로 자동으로 증가
+CREATE TABLE buy -- 구매 테이블
+(  num 		INT AUTO_INCREMENT NOT NULL PRIMARY KEY, -- 순번(PK)
+   mem_id  	CHAR(8) NOT NULL, -- 아이디(FK)
+   prod_name 	CHAR(6) NOT NULL, --  제품이름
+   group_name 	CHAR(4)  , -- 분류
+   price     	INT  NOT NULL, -- 가격
+   amount    	SMALLINT  NOT NULL, -- 수량
+   FOREIGN KEY (mem_id) REFERENCES member(mem_id)
+);
+
+insert문
+화원 테이블에 값을 입력
+
+INSERT INTO member VALUES('TWC', '트와이스', 9, '서울', '02', '11111111', 167, '2015.10.19');
+회원 테이블에 값을 입력  char,varchar,data형은 작은 따옴표로 값을 묶어줌 int형은 작은따옴표 없이 그냥 넣어줌
+
+INSERT INTO buy VALUES(NULL, 'BLK', '지갑', NULL, 30, 2);
+구매 테이블의 첫번째 열인 순번은 자동으로 입력되므로 그 자리에는 NULL이라고 씀
+그러면 알아서 1,2,3....으로 증가하면서 입력됨
+
+
+데이터 조회하기
+
+SELECT * FROM member;
+SELECT * FROM buy;
+
+
+use market_db;
+같이 use 데이터베이스_이름;
+입력
+이렇게 지정해 둔 후에 다시 use문을 사용하거나 다른 db를 사용하겠다고 명시하지 않으면
+앞으로 모든 sql문은 market_db에서 수행됨
+
+SELECT select_expr
+	[FROM table_refrences]
+	[WHERE where_condition]
+	[GROUP BY {col_name | expr | position}]
+	[HAVING where_condition]
+	[ORDER BY {col_name | expr | position}]
+	[LIMIT {[offset,] row_count | row_count OFFSET offset}]
+
+SELECT select_expr
+	[FROM table_refrences]
+	[WHERE where_condition]
+	[GROUP BY {col_name | expr | position}]
+	[HAVING where_condition]
+	[ORDER BY {col_name | expr | position}]
+	[LIMIT {[offset,] row_count | row_count OFFSET offset}]
+
+
+SELECT 열_이름
+	[FROM 테이블_이름]
+	[WHERE 조건식]
+	[GROUP BY 열_이름]
+	[HAVING 조건식]
+	[ORDER BY 열_이름]
+	[LIMIT 숫자]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

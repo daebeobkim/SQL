@@ -1,0 +1,24 @@
+*use shop_db;* 맨위에 써두기
+
+SELECT * FROM shop_db.member; ----- SELECT 열_이름 FROM 테이블_이름 [WHERE 조건]이고 *는 모든열 의미
+OUTPUT패널에는 현재 결과의 건수와 조회하는 데 소요된 시간이 표시
+(SQL)은 대소문자 구분X
+
+SELECT * FROM member where member_name = '아이유';
+where 다음 특정조건 입력시 회원이름이 아이유인 회원만 출력되도록 한 것
+
+
+use shop_db;
+SELECT member_name, member_addr FROM member;
+SELECT * FROM member where member_name = '아이유';
+이렇게 실행 시 2개의 sql결과가 나오지만 
+드래그 하고 실행 시 그 드래그한 결과만 탭에 생성
+
+
+create INDEX idx_member_name ON member(member_name);
+
+on member의 의미는 member 테이블의 member_name열에 인덱스를 지정하라는 의미
+
+execution plan탭을 보면 non-unique key lookup이라고 뜸
+인덱스를 통해 결과를 찾았다는 의미이고 이런 방법을 인덱스 검색이라고 함
+

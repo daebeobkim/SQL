@@ -1,0 +1,26 @@
+/* 트랜젝션은 분할할 수 없는 최소 단위이며 논리적인 작업 단위 */
+
+use practice;
+
+/* 트랜젝션 시작 */
+begin;
+
+/* 데이터 삽입 */
+insert into 회원테이블 values(1001,"홍길동","2020-01-02",1);
+
+/* 회원테이블 조회 */
+select * from 회원테이블;
+
+/* 취소 */
+rollback;
+
+/* 실행 */
+commit;
+
+/* savepoint 저장 */
+savepoint s1;
+
+update 회원테이블 set 이름 = '이순신';
+savepoint s2;
+
+rollback to s1;

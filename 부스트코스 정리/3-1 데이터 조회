@@ -1,0 +1,13 @@
+use practice;
+
+select * from customer;
+/* 테이블 모든 열 조회 */
+
+select * from customer where gender = "man";
+/* 성별이 남성 조건으로 필터링 */
+
+select addr, count(mem_no) as 회원수 from customer where gender = "man" group by addr;
+/* 지역별로 회원 수 집계 */ 
+
+select addr, count(mem_no) as 회원수 from customer where gender = 'man' group by addr having count(mem_no) < 100;
+/* 집계 회원수 100명 미만 조건으로 필터링 */

@@ -12,3 +12,6 @@ select addr, count(mem_no) as 회원수 from customer where gender = "man" group
 
 select addr, count(mem_no) as 회원수 from customer where gender = 'man' group by addr having count(mem_no) < 100;
 /* 집계 회원수 100명 미만 조건으로 필터링 */
+
+select addr, count(mem_no) as 회원수 from customer where gender = 'man' group by addr having count(mem_no) < 100 order by count(mem_no) desc;
+/* 차순으로 정렬 */

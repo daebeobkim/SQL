@@ -14,4 +14,11 @@ select addr, count(mem_no) as 회원수 from customer where gender = 'man' group
 /* 집계 회원수 100명 미만 조건으로 필터링 */
 
 select addr, count(mem_no) as 회원수 from customer where gender = 'man' group by addr having count(mem_no) < 100 order by count(mem_no) desc;
-/* 차순으로 정렬 */
+/* 차순으로 정렬(desc:내림차순 asc:오름차순) */
+
+회원테이블을 -> 성별이 남성 조건으로 필터링하여 -> 거주지역별로 회원수 집계
+from -> where -> group by
+
+이후 group by는 + 집계함수로 주로 사용
+
+

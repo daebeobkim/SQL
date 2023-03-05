@@ -21,4 +21,20 @@ from -> where -> group by
 
 이후 group by는 + 집계함수로 주로 사용
 
+select addr, count(mem_no) as 회원수 
+from customer
+where addr in ('seoul','incheon')
+group by addr;
+/* in : 특수 연산자 / in (list) / 리스트 값만 */
 
+
+select  addr 
+		, count(mem_no) as 회원수
+  from  customer
+ where  gender = "man"
+ group 
+    by  addr
+having  count(mem_no) < 100
+order
+    by  count(mem_no) desc;
+/* 띄어쓰기와 탭키 활용하기 */

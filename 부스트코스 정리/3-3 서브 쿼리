@@ -1,0 +1,48 @@
+use practice;
+
+/* select 명령문 안에 select 명령문 */
+select *
+		,(select gender from customer where a.mem_no = mem_no) as gender
+  from sales as a;
+  
+/* 확인 */
+select *
+  from customer
+ where mem_no = '1000970';
+ 
+ /* from 명령문 안에 select 명령문 */
+ select *
+   from (
+		select mem_no
+			   ,count(order_no) as 주문횟수
+		  from sales
+		  group 
+             by mem_no
+		  )as a;
+
+/* from절 서브 쿼리: 열 및 테이블명 지정 */
+
+/*where 명령문 안에 select 명령문 */
+
+select count(order_no) as 주문횟수
+  from sales
+ where mem_no in (select mem_no from customer where year(join_date) = 2019);
+/* in 내부는 리스트형태로 있어야함 */
+
+/* year: 날짜형 함수 / 연도 변환 */
+
+ select *
+		,year(join_date)
+   from customer;
+   
+/* 리스트 */
+select mem_no from customer where year(join_date) = 2019;
+
+/* where절 서브 쿼리 vs 데이터 결합(join) 결과 값 비교 */
+select count(a.order_no) as 주문횟수
+  from sales as a
+ inner
+  join customer as b
+    on a.mem_no = b.mem_no
+ where year(b.join_date) = 2019;
+ 

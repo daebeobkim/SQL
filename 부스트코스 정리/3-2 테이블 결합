@@ -1,0 +1,72 @@
+use practice;
+select * from sales;
+/* inner join 두 테이블의 공통 값이 매칭되는 데이터만 결합 */
+
+select *
+  from customer as a
+  inner
+   join sales as b
+     on a.mem_no = b.mem_no;
+     
+     
+/* where 절을 사용 */
+     
+select *
+  from customer as a
+ inner
+  join sales as b
+    on a.mem_no = b.mem_no
+ where a.mem_no = '1000970';
+ 
+ /* left join : 두 테이블의 공통 값이 매칭되는 데이터만 결합 + 왼쪽 테이블의 매칭되지 않는 데이터는 null (회원가입후 주문x)*/
+ select *
+   from customer as a
+   left
+   join sales as b
+     on a.mem_no = b.mem_no;
+     
+/* left join : 두 테이블의 공통 값이 매칭되는 데이터만 결합 + 오른쪽 테이블의 매칭되지 않는 데이터는 null(회원번호 999999는 비회원) */
+select *
+   from customer as a
+   right
+   join sales as b
+     on a.mem_no = b.mem_no
+  where a.mem_no is null;
+  
+  /* cistomer 및 sales테이블 inner join 결합 */
+  select *
+	from customer as a
+   inner
+	join sales as b
+      on a.mem_no = b.mem_no;
+      
+/* 임시테이블 생성 */
+create temporary table customer_sales_inner_join
+select a.*
+		,b.order_no
+  from customer as a
+ inner
+  join sales as b
+    on a.mem_no = b.mem_no;
+   
+select * from customer_sales_inner_join;
+
+/* 임시테이블은 서버 연결 종료시 자동으로 삭제 */
+
+/*성별이 남자 조건으로 필터링하여 */
+select *
+  from customer_sales_inner_join
+ where gender = 'man'
+ group 
+	by addr;
+    
+/* 구매횟수 100회 미만 조건으로 필터링(구매횟수 적은 순) */
+select addr
+	   ,count(order_no) as 구매횟수
+  from customer_sales_inner_join
+ where gender = 'man'
+ group 
+	by addr
+having count(order_no) < 100
+ order 
+	by count(order_no) asc;

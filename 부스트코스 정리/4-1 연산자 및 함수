@@ -1,0 +1,112 @@
+use practice;
+
+/* = : 같음 */
+select *
+  from customer
+ where gender = 'man';
+ 
+ /* <> : 같지않음 */
+select *
+  from customer
+ where gender <> 'man';
+ 
+/* >= :~보다 크거나 같음 */
+select *
+  from customer
+ where year(join_date) >= 2020;
+ 
+/* <= :~보다 작거나 같음 */
+select *
+  from customer
+ where year(join_date) <= 2020;
+ 
+/* not = 뒤에 오는 조건과 반대 */
+select *
+  from customer
+ where not gender = 'man';
+
+/* and = 앞,뒤 조건 모두 만족 */
+select *
+  from customer
+ where gender = 'man'
+   and addr = 'gyeonggi';
+   
+/* or 하나라도 만족 */
+select *
+  from customer
+ where gender = 'man'
+    or addr = 'gyeonggi';
+    
+/* between a and b : a와 b의 값 사이 */
+select *
+  from customer
+ where year(birthday) between 2010 and 2011; 
+ 
+ /* not between a and b : a와 b의 값 사이가 아님 */
+select *
+  from customer
+ where year(birthday) not between 2010 and 2011; 
+ 
+ /* in(list) : 리스트 값 */
+ select *
+   from customer
+  where year(birthday) in (2010,2011); 
+  
+ /* like '비교문자열' */
+ select *
+   from customer
+  where addr like 'd%'; /* ~로 시작하는 */
+  
+   select *
+   from customer
+  where addr like '%n'; /* ~로 끝나는 */
+  
+   select *
+   from customer
+  where addr like '%eo%'; /* ~를 포함하는 */
+
+/* is null = null */
+select *
+  from customer as a
+  left
+  join sales as b
+    on a.mem_no = b.mem_no
+ where b.mem_no is null;
+
+/* 확인 */
+select *
+  from sales
+ where mem_no = '1001736';
+
+/*********산술 연산자**********/
+select *
+		,a.sales_qty * price as 결재금액
+  from sales as a
+  left
+  join product as b
+    on a.product_code = b.product_code;
+
+/*********집합 연산자**********/
+create temporary table sales_2019
+select *
+  from sales
+ where year(order_date) = '2019';
+
+select *
+  from sales_2019;
+  
+/* union : 2개 이상 테이블 중복된 행 제거 하여 집합(* 열 개수와 데이터 타입 일치) */
+select *
+  from sales_2019
+ union
+select *
+  from sales;
+  
+/* union all : 2개 이상 테이블 중복된 행 제거 없이 집합(*열 개수와 데이터 타입 일치) */
+select 3115 + 1235;
+
+select *
+  from sales_2019
+union all
+select *
+  from sales;

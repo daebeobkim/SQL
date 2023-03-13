@@ -30,3 +30,5 @@ select datediff('2022-12-31','2022-12-1');
 /* cast(형식a, 형식b) : 형식a를 형식b로 변환 */
 select cast('2022-12-31 12:00:00' as date);
 
+
+

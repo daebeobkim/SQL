@@ -25,7 +25,7 @@ select *
    join sales as b
      on a.mem_no = b.mem_no;
      
-/* left join : 두 테이블의 공통 값이 매칭되는 데이터만 결합 + 오른쪽 테이블의 매칭되지 않는 데이터는 null(회원번호 999999는 비회원) */
+/* right join : 두 테이블의 공통 값이 매칭되는 데이터만 결합 + 오른쪽 테이블의 매칭되지 않는 데이터는 null(회원번호 999999는 비회원) */
 select *
    from customer as a
    right

@@ -1,0 +1,69 @@
+use practice;
+
+select a.mem_no, a.gender, a.birthday, a.addr, a.join_date
+	   ,sum(b.sales_qty * c.price) as 구매금액
+       ,count(b.order_no) 		   as 구매횟수
+       ,sum(b.sales_qty)		   as 구매수량
+  from customer as a
+  left
+  join sales as b
+    on a.mem_no = b.mem_no
+  left
+  join product as c
+    on b.product_code = c.product_code
+ group 
+    by a.mem_no, a.gender, a.birthday, a.addr, a.join_date;
+
+/* 회원 구매정보 임시테이블 */
+create temporary table customer_pur_info as
+select a.mem_no, a.gender, a.birthday, a.addr, a.join_date
+	   ,sum(b.sales_qty * c.price) as 구매금액
+       ,count(b.order_no) 		   as 구매횟수
+       ,sum(b.sales_qty)		   as 구매수량
+  from customer as a
+  left
+  join sales as b
+    on a.mem_no = b.mem_no
+  left
+  join product as c
+    on b.product_code = c.product_code
+ group 
+    by a.mem_no, a.gender, a.birthday, a.addr, a.join_date;
+    
+/* 확인 */
+select * from customer_pur_info;
+
+/***************회원 연령대**************/
+
+/* 생년월일 -> 나이 */
+select *
+		,2021-year(birthday) + 1 as 나이
+  from customer;
+  
+  /* 생년월일 -> 나이 -> 연령대 */
+  select *
+		,case when 나이 < 10 then '10대 미만'
+			  when 나이 < 20 then '10대'
+			  when 나이 < 30 then '20대'
+			  when 나이 < 40 then '30대'
+			  when 나이 < 50 then '40대'
+			  else '50대 이상' end as 연령대
+from (
+	 select *
+			,2021-year(birthday) + 1 as 나이
+	from customer
+    )as a;
+    
+    
+/********회원 선호 카테고리*******/
+select a.mem_no
+		,b.category
+        ,count(a.order_no) as 구매회수
+        ,row_number() over(partition by a.mem_no order by count(a.order_no) desc) as 구매횟수_순위
+  from sales as a
+  left 
+  join product as b
+    on a.product_code = b.product_code
+ group
+    by a.mem_no
+		,b.category;

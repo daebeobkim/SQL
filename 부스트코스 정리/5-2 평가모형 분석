@@ -44,4 +44,5 @@ select 회원세분화
 		  group 
              by 회원세분화
 		  order
+      
              by 회원수 asc;

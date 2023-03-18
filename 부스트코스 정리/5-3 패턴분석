@@ -1,0 +1,27 @@
+use practice;
+
+/********************재구매율 및 구매주기 분석*************************/
+
+/********************재구매율 및 구매주기 분석율 데이터 마트**************/
+create table re_pur_cycle as
+select *
+		,case when date_add(최초구매일자, interval +1 day) <= 최근구매일자 then 'y' else 'n' end as 재구매여부
+        
+        ,datediff(최근구매일자, 최초구매일자) as 구매간격
+        ,case when 구매횟수 -1 = 0 or datediff(최근구매일자, 최초구매일자) = 0 then 0
+			  else datediff(최근구매일자, 최초구매일자) / (구매횟수 -1) end as 구매주기
+from (
+	  select mem_no
+			 ,min(order_date) as 최초구매일자
+             ,max(order_date) as 최근구매일자
+             ,count(order_date) as 구매횟수
+	 from sales
+	where mem_no <> '9999999' /*비회원 제외*/
+    group
+	   by mem_no
+       )as a;
+       
+/* 확인 */
+select *
+  from re_pur_cycle;
+       

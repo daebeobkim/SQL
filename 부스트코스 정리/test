@@ -21,3 +21,28 @@ join(
       
       
 select       
+
+\use practice;
+
+create table gold (
+Date_ date NOT NULL,
+USD_AM double,
+USD_PM double,
+GBP_AM double,
+GBP_PM double,
+EURO_AM double,
+EURO_PM double,
+primary key (Date_)
+);
+
+load data local infile 'C:/Users/rlaeo/Downloads/LBMA-GOLD.csv'
+into table gold
+fields terminated by ','
+enclosed by '"'
+lines terminated by '\n'
+ignore 1 rows; 
+
+show global variables like "local_infile";
+set global local_infile=true;
+
+SET GLOBAL local_infile = 1;

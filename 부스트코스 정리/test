@@ -46,3 +46,4 @@ show global variables like "local_infile";
 set global local_infile=true;
 
 SET GLOBAL local_infile = 1;
+오류 해결 중

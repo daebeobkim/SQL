@@ -47,3 +47,4 @@ set global local_infile=true;
 
 SET GLOBAL local_infile = 1;
 오류 해결 중
+금융데이터 수집 중 
